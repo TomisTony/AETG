@@ -5,7 +5,7 @@ import numpy as np
 class util:
 
     @staticmethod
-    def calculate_all_pairs_num(data_len_list: list, wise_num: int) -> int:
+    def calculate_total_pairs_count(data_len_list: list, wise_num: int) -> int:
         sum = 0
         combinations = list(itertools.combinations(
             range(len(data_len_list)), wise_num))
