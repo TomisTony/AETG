@@ -20,8 +20,12 @@ if __name__ == "__main__":
     #     print(sys.argv[1],sys.argv[2])
     # a = pairwise([0,1,2,3,4,5,6])
     # print(a)
+
     data_len_list = test_data.get_data_len_list()
     print(util.calculate_all_pairs_num(data_len_list,2))
+    # print(util.RECUR_get_pairs_from_subcombination(data_len_list,util.get_init_candidate_list(len(data_len_list)),(1,2)))
+    print(util.get_sorted_uncovered_pairs_from_data_len_list(data_len_list,3))
+
 
     
         
