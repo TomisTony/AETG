@@ -1,4 +1,4 @@
-from Data import Data, test_data
+from Data import Data, test_data, jd_data
 from utils import util
 import numpy as np
 
@@ -9,6 +9,7 @@ class AETG:
         self.data: Data = data
         self.data_len_list: list[int] = self.data.get_data_len_list()
         self.catagory_num = self.data.catagory_num
+        self.catagory_names: list[str] = self.data.catagory
         self.wise_num = wise_num
         self.uncovered_pairs: set[
             tuple] = util.get_sorted_uncovered_pairs_from_data_len_list(
@@ -17,6 +18,7 @@ class AETG:
             self.data_len_list, self.wise_num)
         self.test_times = 20  # The number of test times for find a better candicate
         self.result: list[tuple] = []
+        self.readable_data: list[list[str]] = []
 
     def aetg(self) -> list[list]:
         while len(self.uncovered_pairs) > 0:
@@ -26,6 +28,29 @@ class AETG:
             self.__update_uncovered_pairs(better_candidate)
             self.result.append(better_candidate)
         return self.result
+
+    def get_csv_result(self,csv_save_path: str) -> None:
+
+        self.aetg()
+        self.aetg_result_to_readable_data()
+        self.print_data_to_csv(csv_save_path)
+
+    def aetg_result_to_readable_data(self) -> None:
+        for candidate in self.result:
+            readable_candidate: list[str] = []
+            for i in range(len(candidate)):
+                catagory_name = self.catagory_names[i]
+                if catagory_name in self.data.detail:
+                    catagory_datas = self.data.detail[catagory_name]
+                    readable_candidate.append(catagory_datas[candidate[i]])
+            self.readable_data.append(readable_candidate)
+
+    def print_data_to_csv(self, csv_save_path: str) -> None:
+        import csv
+        with open(csv_save_path, 'w', newline='') as f:
+            write = csv.writer(f, dialect=('excel'))
+            write.writerow(self.catagory_names)
+            write.writerows(self.readable_data)
 
     def __randomly_generate_candidates(self) -> list[tuple]:
         candidates: list[tuple] = []
@@ -79,11 +104,11 @@ class AETG:
             appear_list = matrix[:, i].tolist()
             while -1 in appear_list:
                 appear_list.remove(-1)
-            if len(appear_list) == 0: # in case no element remain
+            if len(appear_list) == 0:  # in case no element remain
                 # these two list need to append too to keep the order
                 most_frequent_index_of_each_catagory.append(-1)
                 appear_times_of_each_most_frequent_index.append(0)
-                continue 
+                continue
             # get the appear count of each index except -1 in one catagory
             appear_count = np.bincount(appear_list)
             max_arg = np.argmax(appear_count)
@@ -146,10 +171,6 @@ class AETG:
 
 
 if __name__ == "__main__":
-    test = AETG(test_data,3)
-    result = test.aetg()
-    print(len(result))
-    print(result)
-    # data_len_list = test_data.get_data_len_list()
-    # ucps = util.get_sorted_uncovered_pairs_from_data_len_list(data_len_list,1)
-    # print(ucps)
+    test = AETG(jd_data, 2)
+    print(test.data_len_list)
+    test.get_csv_result('./test.csv')
