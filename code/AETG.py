@@ -1,63 +1,149 @@
-import sys
-from itertools import pairwise
-
 from Data import Data, test_data
 from utils import util
+import numpy as np
 
 
 class AETG:
+
     def __init__(self, data: Data, wise_num: int) -> None:
         self.data: Data = data
-        self.data_len_list: list[int] = data.get_data_len_list()
-        self.catagory_num = data.catagory_num
+        self.data_len_list: list[int] = self.data.get_data_len_list()
+        self.catagory_num = self.data.catagory_num
         self.wise_num = wise_num
-        self.uncovered_pairs: set[tuple] = util.get_sorted_uncovered_pairs_from_data_len_list(
+        self.uncovered_pairs: set[
+            tuple] = util.get_sorted_uncovered_pairs_from_data_len_list(
+                self.data_len_list, self.wise_num)
+        self.total_pairs_count = util.calculate_total_pairs_count(
             self.data_len_list, self.wise_num)
-        self.total_pairs_count = util.calculate_total_pairs_count(self.data_len_list,self.wise_num)
         self.test_times = 20  # The number of test times for find a better candicate
         self.result: list[tuple] = []
 
     def aetg(self) -> list[list]:
         while len(self.uncovered_pairs) > 0:
             candidates: list[tuple] = self.__randomly_generate_candidates()
-            test_case:tuple = self.__choose_better_candidate(candidates)
-            self.result.append(test_case)
+            better_candidate: tuple = self.__choose_better_candidate(
+                candidates)
+            self.__update_uncovered_pairs(better_candidate)
+            self.result.append(better_candidate)
         return self.result
 
     def __randomly_generate_candidates(self) -> list[tuple]:
         candidates: list[tuple] = []
+        # each loop, we will have the same first catagory
+        catagory, index = self.__find_most_frequent_catagory_and_para()
         for i in range(self.test_times):
-            candidate: list[int] = []
-            # choose first catagory
-            catagory, index = self.__find_most_frequent_catagory_and_para()
+            candidate: list[int] = util.get_list_of_negative1(
+                self.catagory_num)
+            # fill in the first catagory
             candidate[catagory] = index
 
             candidate = self.__choose_other_catagories(candidate)
             candidates.append(tuple(candidate))
         return candidates
 
+    '''
+    Choose the candidate with most covered pairs in self.uncovered_pairs
+    '''
+
     def __choose_better_candidate(self, candidates: list[tuple]) -> tuple:
-        pass
+        max_index = 0
+        max_coverd_count = util.get_covered_pairs_count_of_candidate(
+            self.uncovered_pairs, candidates[0])
+        for i in range(1, len(candidates)):
+            covered_count = util.get_covered_pairs_count_of_candidate(
+                self.uncovered_pairs, candidates[i])
+            if covered_count > max_coverd_count:
+                max_coverd_count = covered_count
+                max_index = i
+        return candidates[max_index]
+
+    def __update_uncovered_pairs(self, candidate: tuple) -> None:
+        new_covered_pairs: list[tuple] = util.get_covered_pairs_of_candidate(
+            self.uncovered_pairs, candidate)
+        for pair in new_covered_pairs:
+            self.uncovered_pairs.remove(pair)
 
     '''
     Return the value of catagory and its specific index.
-    First return value is catagory's index.
+    First return is catagory's index.
     Second is its specific index.
     '''
+
     def __find_most_frequent_catagory_and_para(self) -> tuple[int, int]:
-        pass
+        matrix = np.array(self.uncovered_pairs)
+        most_frequent_index_of_each_catagory: list = []
+        appear_times_of_each_most_frequent_index: list = []
+        # get the statistics of each catagory
+        for i in range(len(self.data_len_list)):
+            # get the list of each index appear in the uncovered_pairs
+            appear_list = matrix[:, i].tolist()
+            while -1 in appear_list:
+                appear_list.remove(-1)
+            # get the appear count of each index except -1 in one catagory
+            appear_count = np.bincount(appear_list)
+            max_arg = np.argmax(appear_count)
+            most_frequent_index_of_each_catagory.append(max_arg)
+            appear_times_of_each_most_frequent_index.append(
+                appear_count[max_arg])
+        # find the result we need
+        most_frequent = np.argmax(appear_times_of_each_most_frequent_index)
+        return most_frequent, most_frequent_index_of_each_catagory[most_frequent]
 
     '''
     After we choose our first catagory, we will choose other catagories.
     Return: a complete candidate
     '''
-    def __choose_other_catagories(self, candidate) -> list[int]:
-        pass
 
-    
+    def __choose_other_catagories(self, candidate: list[int]) -> list[int]:
+        # do not change the get-in arg, make its copy
+        result: list[int] = candidate.copy()
+        not_selected_catagory: list = self.__get_not_selected_catagory_from_candidate(
+            candidate)
+        while len(not_selected_catagory) > 0:
+            random_choosed_catagory: int = util.randomly_choose_one_element_from_list(
+                not_selected_catagory)
+            # update not_selected_catagory
+            not_selected_catagory.remove(random_choosed_catagory)
+            choosed_catagory_count = self.catagory_num - \
+                len(not_selected_catagory)
+            choosed_index = self.__get_choosed_index_after_first_element(
+                choosed_catagory_count, random_choosed_catagory, result)
+            result[random_choosed_catagory] = choosed_index
+
+        return result
+
+    def __get_not_selected_catagory_from_candidate(self, candidate: tuple) -> list:
+        result = []
+        for i in range(self.catagory_num):
+            if candidate[i] != -1:
+                result.append(i)
+        return result
+
+    def __get_choosed_index_after_first_element(
+        self,
+        choosed_catagory_count: int,
+        random_choosed_catagory: int,
+        now_candidate: list[int]
+    ) -> int:
+
+        count: list[int] = []
+        for choosed_index in range(self.data_len_list[random_choosed_catagory]):
+            new_candidate = now_candidate.copy()
+            new_candidate[random_choosed_catagory] = choosed_index
+            if choosed_catagory_count <= self.wise_num:
+                choosed_index = util.get_contained_count_of_incomplete_candidate(
+                    new_candidate, self.uncovered_pairs)
+            else:
+                choosed_index = util.get_covered_count_of_incomplete_candidate(
+                    new_candidate, self.uncovered_pairs)
+            count.append(choosed_index)
+        return np.argmax(count)
+
 
 if __name__ == "__main__":
-    data_len_list = test_data.get_data_len_list()
-    print(util.calculate_total_pairs_count(data_len_list, 2))
-    # print(util.RECUR_get_pairs_from_subcombination(data_len_list,util.get_init_candidate_list(len(data_len_list)),(1,2)))
-    print(util.get_sorted_uncovered_pairs_from_data_len_list(data_len_list, 3))
+    # data_len_list = test_data.get_data_len_list()
+    # print(util.calculate_total_pairs_count(data_len_list, 2))
+    # # print(util.RECUR_get_pairs_from_subcombination(data_len_list,util.get_init_candidate_list(self.catagory_num),(1,2)))
+    # print(util.get_sorted_uncovered_pairs_from_data_len_list(data_len_list, 2))
+    test = AETG(test_data,2)
+    print(test.aetg())
