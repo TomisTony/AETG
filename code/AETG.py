@@ -79,6 +79,11 @@ class AETG:
             appear_list = matrix[:, i].tolist()
             while -1 in appear_list:
                 appear_list.remove(-1)
+            if len(appear_list) == 0: # in case no element remain
+                # these two list need to append too to keep the order
+                most_frequent_index_of_each_catagory.append(-1)
+                appear_times_of_each_most_frequent_index.append(0)
+                continue 
             # get the appear count of each index except -1 in one catagory
             appear_count = np.bincount(appear_list)
             max_arg = np.argmax(appear_count)
@@ -115,7 +120,7 @@ class AETG:
     def __get_not_selected_catagory_from_candidate(self, candidate: tuple) -> list:
         result = []
         for i in range(self.catagory_num):
-            if candidate[i] != -1:
+            if candidate[i] == -1:
                 result.append(i)
         return result
 
@@ -141,9 +146,10 @@ class AETG:
 
 
 if __name__ == "__main__":
+    test = AETG(test_data,1)
+    result = test.aetg()
+    print(len(result))
+    print(result)
     # data_len_list = test_data.get_data_len_list()
-    # print(util.calculate_total_pairs_count(data_len_list, 2))
-    # # print(util.RECUR_get_pairs_from_subcombination(data_len_list,util.get_init_candidate_list(self.catagory_num),(1,2)))
-    # print(util.get_sorted_uncovered_pairs_from_data_len_list(data_len_list, 2))
-    test = AETG(test_data,2)
-    print(test.aetg())
+    # ucps = util.get_sorted_uncovered_pairs_from_data_len_list(data_len_list,1)
+    # print(ucps)

@@ -92,7 +92,7 @@ class util:
         candidate: tuple,
     ) -> list[tuple]:
         # wise_num equals the length of first element in uncovered_pairs
-        wise_num = len(uncovered_pairs[0])
+        wise_num = util.__get_wise_num_from_uncovered_pairs(uncovered_pairs)
         covered_pairs = []
         combinations = list(itertools.combinations(
             range(len(candidate)), wise_num))
@@ -104,6 +104,14 @@ class util:
             if tuple(test_case) in uncovered_pairs:
                 covered_pairs.append(tuple(test_case))
         return covered_pairs
+
+    @staticmethod
+    def __get_wise_num_from_uncovered_pairs(uncovered_pairs : list[tuple]):
+        pair = uncovered_pairs[0]
+        wise_num = 0
+        for i in range(len(pair)):
+            if pair[i] != -1 : wise_num += 1
+        return wise_num
 
     '''
     Return the element
@@ -133,11 +141,12 @@ class util:
                 # of each element in incomplete_candidate(except -1)
                 matching_list.append(np.where(colomn_i == incomplete_candidate[i]))
         sum = 0
-        first_match = matching_list[0]
+        # why use [0][0], you can check the matching_list format in debugger
+        first_match = matching_list[0][0].tolist()
         for i in range(len(first_match)):
             match_count = 0
             for matcher in matching_list:
-                if first_match[i] in matcher: match_count += 1
+                if first_match[i] in matcher[0].tolist(): match_count += 1
             # if we find a row appears in every matcher, then
             # we find one uncovered_pair contain the incomplete_candidate
             if match_count == len(matching_list): sum += 1
@@ -154,7 +163,7 @@ class util:
         uncovered_pairs: list[tuple]
     ) -> int:
         # wise_num equals the length of first element in uncovered_pairs
-        wise_num = len(uncovered_pairs[0])
+        wise_num = util.__get_wise_num_from_uncovered_pairs(uncovered_pairs)
         choosed_catagory_list: list = []
         for i in range(len(incomplete_candidate)):
             if incomplete_candidate[i] != -1:
