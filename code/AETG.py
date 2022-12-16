@@ -136,17 +136,17 @@ class AETG:
             new_candidate = now_candidate.copy()
             new_candidate[random_choosed_catagory] = choosed_index
             if choosed_catagory_count <= self.wise_num:
-                choosed_index = util.get_contained_count_of_incomplete_candidate(
+                choosed_index_count = util.get_contained_count_of_incomplete_candidate(
                     new_candidate, self.uncovered_pairs)
             else:
-                choosed_index = util.get_covered_count_of_incomplete_candidate(
+                choosed_index_count = util.get_covered_count_of_incomplete_candidate(
                     new_candidate, self.uncovered_pairs)
-            count.append(choosed_index)
+            count.append(choosed_index_count)
         return np.argmax(count)
 
 
 if __name__ == "__main__":
-    test = AETG(test_data,1)
+    test = AETG(test_data,3)
     result = test.aetg()
     print(len(result))
     print(result)
