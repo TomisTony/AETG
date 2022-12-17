@@ -16,8 +16,8 @@ class AETG:
                 self.data_len_list, self.wise_num)
         self.total_pairs_count = util.calculate_total_pairs_count(
             self.data_len_list, self.wise_num)
-        self.test_times_min = 5  # The number of test times for find a better candicate
-        self.test_times_max = 100
+        self.test_times_min = 20  # The number of test times for find a better candicate
+        self.test_times_max = 50
         self.result: list[tuple] = []
         self.readable_data: list[list[str]] = []
 
@@ -82,16 +82,16 @@ class AETG:
     '''
 
     def __choose_better_candidate(self, candidates: list[tuple]) -> tuple:
-        max_index = 0
-        max_coverd_count = util.get_covered_pairs_count_of_candidate(
-            self.uncovered_pairs, candidates[0])
-        for i in range(1, len(candidates)):
-            covered_count = util.get_covered_pairs_count_of_candidate(
-                self.uncovered_pairs, candidates[i])
-            if covered_count > max_coverd_count:
-                max_coverd_count = covered_count
-                max_index = i
+        cover_pair_count_list = []
+        for candidate in candidates:
+            cover_pair_count_list.append(
+                util.get_covered_pairs_count_of_candidate(
+                    self.uncovered_pairs,candidate
+                )
+            )
+        max_index = util.randomly_choose_the_max(cover_pair_count_list)
         return candidates[max_index]
+
 
     def __update_uncovered_pairs(self, candidate: tuple) -> None:
         new_covered_pairs: list[tuple] = util.get_covered_pairs_of_candidate(
@@ -122,12 +122,12 @@ class AETG:
                 continue
             # get the appear count of each index except -1 in one catagory
             appear_count = np.bincount(appear_list)
-            max_arg = np.argmax(appear_count)
+            max_arg = util.randomly_choose_the_max(appear_count)
             most_frequent_index_of_each_catagory.append(max_arg)
             appear_times_of_each_most_frequent_index.append(
                 appear_count[max_arg])
         # find the result we need
-        most_frequent = np.argmax(appear_times_of_each_most_frequent_index)
+        most_frequent = util.randomly_choose_the_max(appear_times_of_each_most_frequent_index)
         return most_frequent, most_frequent_index_of_each_catagory[most_frequent]
 
     '''
@@ -178,7 +178,7 @@ class AETG:
                 choosed_index_count = util.get_covered_count_of_incomplete_candidate(
                     new_candidate, self.uncovered_pairs)
             count.append(choosed_index_count)
-        return np.argmax(count)
+        return util.randomly_choose_the_max(count)
 
 
 if __name__ == "__main__":

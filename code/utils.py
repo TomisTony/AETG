@@ -201,3 +201,16 @@ class util:
                 candidate[i] if i in choosed_pair_catagory_list else -1
             )
         return result
+    
+    '''
+    Return the max element's index.
+    If have more than one max element, randomly return one of them.
+    '''
+    @staticmethod
+    def randomly_choose_the_max(elements: list[int]):
+        max = np.max(elements)
+        choose_list = []
+        for i in range(len(elements)):
+            if elements[i] == max:
+                choose_list.append(i)
+        return random.choice(choose_list)
