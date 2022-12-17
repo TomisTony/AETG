@@ -16,7 +16,8 @@ class AETG:
                 self.data_len_list, self.wise_num)
         self.total_pairs_count = util.calculate_total_pairs_count(
             self.data_len_list, self.wise_num)
-        self.test_times = 2  # The number of test times for find a better candicate
+        self.test_times_min = 5  # The number of test times for find a better candicate
+        self.test_times_max = 100
         self.result: list[tuple] = []
         self.readable_data: list[list[str]] = []
 
@@ -27,14 +28,11 @@ class AETG:
 
     def __aetg(self) -> list[tuple]:
         while len(self.uncovered_pairs) > 0:
-            print("new aetg begin! len(ucps)=",len(self.uncovered_pairs))
+            print("new turn begin! len(ucps)=",len(self.uncovered_pairs))
             candidates: list[tuple] = self.__randomly_generate_candidates()
-            print("randomly generate candidates done!")
             better_candidate: tuple = self.__choose_better_candidate(
                 candidates)
-            print("choose better candidate done!")
             self.__update_uncovered_pairs(better_candidate)
-            print("update uncovered pairs done!\n")
             self.result.append(better_candidate)
         return self.result
 
@@ -59,7 +57,8 @@ class AETG:
         candidates: list[tuple] = []
         # each loop, we will have the same first catagory
         catagory, index = self.__find_most_frequent_catagory_and_para()
-        for i in range(self.test_times):
+        test_times = self.__get_test_time()
+        for i in range(test_times):
             candidate: list[int] = util.get_list_of_negative1(
                 self.catagory_num)
             # fill in the first catagory
@@ -68,6 +67,15 @@ class AETG:
             candidate = self.__choose_other_catagories(candidate)
             candidates.append(tuple(candidate))
         return candidates
+
+    '''
+    Change the test_time dynamically
+    '''
+    def __get_test_time(self) -> int:
+        uncovered_pairs_len = len(self.uncovered_pairs)
+        percent = uncovered_pairs_len / self.total_pairs_count
+        diff = self.test_times_max - self.test_times_min
+        return int(self.test_times_max - diff * percent)
 
     '''
     Choose the candidate with most covered pairs in self.uncovered_pairs
