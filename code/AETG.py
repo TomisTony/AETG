@@ -190,9 +190,9 @@ if __name__ == "__main__":
     # print(test1.data_len_list)
     # test1.get_csv_result('./jd_3pairwise.csv')
 
-    # test2 = AETG(xc_data, 2)
-    # print(test2.data_len_list)
-    # test2.get_csv_result('./xc_2pairwise.csv')
+    test2 = AETG(xc_data, 2)
+    print(test2.data_len_list)
+    test2.get_csv_result('./xc_2pairwise.csv')
 
     test3 = AETG(xc_data, 3)
     print(test3.data_len_list)

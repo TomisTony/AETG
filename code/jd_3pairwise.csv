@@ -1,0 +1,105 @@
+品牌,能效等级,支持IPv6,类型,处理器,固态硬盘,内存容量,屏幕刷新率
+hp,一级能效,支持IPv6,轻薄本,麒麟,128G,4G,60Hz
+hp,二级能效,不支持IPv6,游戏本,AMD,512G,6G,90Hz
+lenovo,三级能效,支持IPv6,高端轻薄本,intel i5,1T,8G,90Hz
+lenovo,五级能效,不支持IPv6,高端游戏本,intel i7,128G,16G,120Hz
+huawei,二级能效,支持IPv6,移动工作站,intel i9,2T,32G,120Hz
+dell,一级能效,不支持IPv6,轻薄本,intel i9,4T,8G,144Hz
+ASUS,一级能效,支持IPv6,高端游戏本,AMD,512G,64G,240Hz
+ThinkPad,三级能效,不支持IPv6,游戏本,麒麟,1T,32G,240Hz
+Apple,五级能效,不支持IPv6,高端轻薄本,AMD,2T,128G,60Hz
+Apple,五级能效,支持IPv6,移动工作站,麒麟,4T,6G,144Hz
+huawei,二级能效,不支持IPv6,游戏本,intel i5,128G,64G,144Hz
+dell,三级能效,支持IPv6,移动工作站,intel i7,512G,16G,60Hz
+ASUS,二级能效,不支持IPv6,高端轻薄本,intel i7,4T,4G,120Hz
+ThinkPad,一级能效,支持IPv6,游戏本,intel i7,2T,128G,90Hz
+ASUS,五级能效,支持IPv6,轻薄本,intel i5,512G,32G,90Hz
+huawei,三级能效,支持IPv6,轻薄本,AMD,1T,6G,120Hz
+hp,三级能效,支持IPv6,高端游戏本,intel i9,1T,128G,144Hz
+lenovo,二级能效,支持IPv6,轻薄本,麒麟,2T,16G,240Hz
+ThinkPad,二级能效,支持IPv6,高端游戏本,intel i5,4T,8G,60Hz
+Apple,一级能效,不支持IPv6,移动工作站,intel i5,128G,4G,240Hz
+dell,五级能效,支持IPv6,游戏本,intel i9,1T,4G,90Hz
+dell,一级能效,支持IPv6,高端轻薄本,麒麟,512G,64G,120Hz
+huawei,一级能效,支持IPv6,高端轻薄本,intel i9,4T,16G,240Hz
+Apple,二级能效,支持IPv6,轻薄本,intel i7,1T,64G,60Hz
+hp,五级能效,支持IPv6,移动工作站,intel i7,2T,8G,240Hz
+lenovo,一级能效,支持IPv6,游戏本,AMD,4T,32G,144Hz
+ASUS,三级能效,支持IPv6,游戏本,intel i9,128G,6G,60Hz
+ThinkPad,五级能效,支持IPv6,移动工作站,AMD,128G,64G,90Hz
+huawei,二级能效,支持IPv6,高端游戏本,麒麟,512G,128G,90Hz
+dell,一级能效,支持IPv6,高端游戏本,intel i5,2T,6G,240Hz
+Apple,三级能效,支持IPv6,游戏本,intel i9,512G,8G,120Hz
+ASUS,一级能效,支持IPv6,移动工作站,AMD,1T,16G,144Hz
+hp,三级能效,支持IPv6,轻薄本,intel i5,4T,128G,120Hz
+ThinkPad,三级能效,支持IPv6,高端轻薄本,intel i9,512G,4G,144Hz
+lenovo,三级能效,支持IPv6,移动工作站,intel i9,2T,64G,60Hz
+dell,二级能效,支持IPv6,高端轻薄本,AMD,128G,32G,60Hz
+Apple,一级能效,支持IPv6,游戏本,intel i5,4T,16G,90Hz
+ASUS,一级能效,支持IPv6,移动工作站,麒麟,128G,128G,240Hz
+huawei,五级能效,支持IPv6,高端游戏本,intel i7,2T,4G,144Hz
+huawei,一级能效,支持IPv6,轻薄本,麒麟,128G,8G,60Hz
+hp,一级能效,支持IPv6,高端轻薄本,intel i7,128G,6G,60Hz
+lenovo,一级能效,支持IPv6,轻薄本,AMD,512G,4G,60Hz
+ThinkPad,一级能效,支持IPv6,轻薄本,麒麟,128G,6G,120Hz
+Apple,一级能效,支持IPv6,高端游戏本,intel i7,128G,32G,60Hz
+hp,一级能效,支持IPv6,轻薄本,麒麟,128G,16G,60Hz
+hp,一级能效,支持IPv6,轻薄本,麒麟,128G,32G,60Hz
+lenovo,一级能效,支持IPv6,轻薄本,麒麟,128G,6G,60Hz
+ASUS,一级能效,支持IPv6,轻薄本,AMD,2T,8G,60Hz
+hp,一级能效,支持IPv6,轻薄本,麒麟,4T,64G,60Hz
+lenovo,一级能效,支持IPv6,轻薄本,麒麟,128G,128G,60Hz
+dell,一级能效,支持IPv6,轻薄本,麒麟,128G,128G,60Hz
+ThinkPad,一级能效,支持IPv6,轻薄本,麒麟,128G,16G,60Hz
+hp,一级能效,支持IPv6,轻薄本,麒麟,128G,4G,60Hz
+hp,二级能效,不支持IPv6,游戏本,AMD,512G,6G,90Hz
+lenovo,三级能效,支持IPv6,高端轻薄本,intel i5,1T,8G,90Hz
+lenovo,五级能效,不支持IPv6,高端游戏本,intel i7,128G,16G,120Hz
+huawei,二级能效,支持IPv6,移动工作站,intel i9,2T,32G,120Hz
+dell,一级能效,不支持IPv6,轻薄本,intel i9,4T,8G,144Hz
+ASUS,一级能效,支持IPv6,高端游戏本,AMD,512G,64G,240Hz
+ThinkPad,三级能效,不支持IPv6,游戏本,麒麟,1T,32G,240Hz
+Apple,五级能效,不支持IPv6,高端轻薄本,AMD,2T,128G,60Hz
+Apple,五级能效,支持IPv6,移动工作站,麒麟,4T,6G,144Hz
+huawei,二级能效,不支持IPv6,游戏本,intel i5,128G,64G,144Hz
+dell,三级能效,支持IPv6,移动工作站,intel i7,512G,16G,60Hz
+ASUS,二级能效,不支持IPv6,高端轻薄本,intel i7,4T,4G,120Hz
+ThinkPad,一级能效,支持IPv6,游戏本,intel i7,2T,128G,90Hz
+ASUS,五级能效,支持IPv6,轻薄本,intel i5,512G,32G,90Hz
+huawei,三级能效,支持IPv6,轻薄本,AMD,1T,6G,120Hz
+hp,三级能效,支持IPv6,高端游戏本,intel i9,1T,128G,144Hz
+lenovo,二级能效,支持IPv6,轻薄本,麒麟,2T,16G,240Hz
+ThinkPad,二级能效,支持IPv6,高端游戏本,intel i5,4T,8G,60Hz
+Apple,一级能效,不支持IPv6,移动工作站,intel i5,128G,4G,240Hz
+dell,五级能效,支持IPv6,游戏本,intel i9,1T,4G,90Hz
+dell,一级能效,支持IPv6,高端轻薄本,麒麟,512G,64G,120Hz
+huawei,一级能效,支持IPv6,高端轻薄本,intel i9,4T,16G,240Hz
+Apple,二级能效,支持IPv6,轻薄本,intel i7,1T,64G,60Hz
+hp,五级能效,支持IPv6,移动工作站,intel i7,2T,8G,240Hz
+lenovo,一级能效,支持IPv6,游戏本,AMD,4T,32G,144Hz
+ASUS,三级能效,支持IPv6,游戏本,intel i9,128G,6G,60Hz
+ThinkPad,五级能效,支持IPv6,移动工作站,AMD,128G,64G,90Hz
+huawei,二级能效,支持IPv6,高端游戏本,麒麟,512G,128G,90Hz
+dell,一级能效,支持IPv6,高端游戏本,intel i5,2T,6G,240Hz
+Apple,三级能效,支持IPv6,游戏本,intel i9,512G,8G,120Hz
+ASUS,一级能效,支持IPv6,移动工作站,AMD,1T,16G,144Hz
+hp,三级能效,支持IPv6,轻薄本,intel i5,4T,128G,120Hz
+ThinkPad,三级能效,支持IPv6,高端轻薄本,intel i9,512G,4G,144Hz
+lenovo,三级能效,支持IPv6,移动工作站,intel i9,2T,64G,60Hz
+dell,二级能效,支持IPv6,高端轻薄本,AMD,128G,32G,60Hz
+Apple,一级能效,支持IPv6,游戏本,intel i5,4T,16G,90Hz
+ASUS,一级能效,支持IPv6,移动工作站,麒麟,128G,128G,240Hz
+huawei,五级能效,支持IPv6,高端游戏本,intel i7,2T,4G,144Hz
+huawei,一级能效,支持IPv6,轻薄本,麒麟,128G,8G,60Hz
+hp,一级能效,支持IPv6,高端轻薄本,intel i7,128G,6G,60Hz
+lenovo,一级能效,支持IPv6,轻薄本,AMD,512G,4G,60Hz
+ThinkPad,一级能效,支持IPv6,轻薄本,麒麟,128G,6G,120Hz
+Apple,一级能效,支持IPv6,高端游戏本,intel i7,128G,32G,60Hz
+hp,一级能效,支持IPv6,轻薄本,麒麟,128G,16G,60Hz
+hp,一级能效,支持IPv6,轻薄本,麒麟,128G,32G,60Hz
+lenovo,一级能效,支持IPv6,轻薄本,麒麟,128G,6G,60Hz
+ASUS,一级能效,支持IPv6,轻薄本,AMD,2T,8G,60Hz
+hp,一级能效,支持IPv6,轻薄本,麒麟,4T,64G,60Hz
+lenovo,一级能效,支持IPv6,轻薄本,麒麟,128G,128G,60Hz
+dell,一级能效,支持IPv6,轻薄本,麒麟,128G,128G,60Hz
+ThinkPad,一级能效,支持IPv6,轻薄本,麒麟,128G,16G,60Hz
