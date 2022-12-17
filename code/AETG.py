@@ -22,10 +22,14 @@ class AETG:
 
     def aetg(self) -> list[list]:
         while len(self.uncovered_pairs) > 0:
+            print("new aetg begin! len(ucps)=",len(self.uncovered_pairs))
             candidates: list[tuple] = self.__randomly_generate_candidates()
+            print("randomly generate candidates done!")
             better_candidate: tuple = self.__choose_better_candidate(
                 candidates)
+            print("choose better candidate done!")
             self.__update_uncovered_pairs(better_candidate)
+            print("update uncovered pairs done!\n")
             self.result.append(better_candidate)
         return self.result
 
@@ -171,13 +175,17 @@ class AETG:
 
 
 if __name__ == "__main__":
-    test = AETG(jd_data, 3)
-    print(test.data_len_list)
-    test.get_csv_result('./jd_3pairwise.csv')
+    # test = AETG(jd_data, 2)
+    # print(test.data_len_list)
+    # test.get_csv_result('./jd_2pairwise.csv')
 
-    test2 = AETG(xc_data, 2)
-    print(test2.data_len_list)
-    test2.get_csv_result('./xc_2pairwise.csv')
+    # test1 = AETG(jd_data, 3)
+    # print(test1.data_len_list)
+    # test1.get_csv_result('./jd_3pairwise.csv')
+
+    # test2 = AETG(xc_data, 2)
+    # print(test2.data_len_list)
+    # test2.get_csv_result('./xc_2pairwise.csv')
 
     test3 = AETG(xc_data, 3)
     print(test3.data_len_list)
