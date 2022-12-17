@@ -175,13 +175,14 @@ class util:
         for combination in combinations:
             choosed_pair = util.__get_choosed_pair_from_combination(
                 combination, choosed_catagory_list, incomplete_candidate)
-            sum += util.get_contained_count_of_incomplete_candidate(choosed_pair,uncovered_pairs)
+            # sum += util.get_contained_count_of_incomplete_candidate(choosed_pair,uncovered_pairs)
+            if tuple(choosed_pair) in uncovered_pairs: sum += 1
         return sum
 
     '''
     Based on combination and choosed_catagory_list, return the choosed pair.
     Combination means the combination in choosed_catagory_list.
-    We need read the it through the element in combination to know which
+    We need read through the element in combination to know which
     catagory is used to make up pair.
     '''
     @staticmethod

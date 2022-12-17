@@ -16,11 +16,16 @@ class AETG:
                 self.data_len_list, self.wise_num)
         self.total_pairs_count = util.calculate_total_pairs_count(
             self.data_len_list, self.wise_num)
-        self.test_times = 20  # The number of test times for find a better candicate
+        self.test_times = 2  # The number of test times for find a better candicate
         self.result: list[tuple] = []
         self.readable_data: list[list[str]] = []
 
-    def aetg(self) -> list[list]:
+    def get_csv_result(self,csv_save_path: str) -> None:
+        self.__aetg()
+        self.__aetg_result_to_readable_data()
+        self.__print_data_to_csv(csv_save_path)
+
+    def __aetg(self) -> list[tuple]:
         while len(self.uncovered_pairs) > 0:
             print("new aetg begin! len(ucps)=",len(self.uncovered_pairs))
             candidates: list[tuple] = self.__randomly_generate_candidates()
@@ -33,13 +38,7 @@ class AETG:
             self.result.append(better_candidate)
         return self.result
 
-    def get_csv_result(self,csv_save_path: str) -> None:
-
-        self.aetg()
-        self.aetg_result_to_readable_data()
-        self.print_data_to_csv(csv_save_path)
-
-    def aetg_result_to_readable_data(self) -> None:
+    def __aetg_result_to_readable_data(self) -> None:
         for candidate in self.result:
             readable_candidate: list[str] = []
             for i in range(len(candidate)):
@@ -49,7 +48,7 @@ class AETG:
                     readable_candidate.append(catagory_datas[candidate[i]])
             self.readable_data.append(readable_candidate)
 
-    def print_data_to_csv(self, csv_save_path: str) -> None:
+    def __print_data_to_csv(self, csv_save_path: str) -> None:
         import csv
         with open(csv_save_path, 'w', newline='') as f:
             write = csv.writer(f, dialect=('excel'))
